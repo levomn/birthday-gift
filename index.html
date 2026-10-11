@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Beloved Angel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Italiana&family=Pinyon+Script&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="mini" viewBox="0 0 44 34">
+      <g fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+        <ellipse cx="15" cy="14" rx="5.5" ry="12.5" transform="rotate(-10 15 14)"/>
+        <ellipse cx="29" cy="14" rx="5.5" ry="12.5" transform="rotate(10 29 14)"/>
+        <path d="M7 30 Q22 36 37 30"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<div class="tools top">
+  <button class="pill" id="themeBtn" type="button" aria-label="Switch between day and night">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+    <span id="themeLabel">night</span>
+  </button>
+</div>
+<div class="tools bottom">
+  <button class="pill" id="musicBtn" type="button" aria-pressed="false">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/></svg>
+    <span id="musicLabel">music box</span>
+  </button>
+</div>
+
+<main>
+  <header class="hero">
+    <svg class="ears" id="ears" viewBox="0 0 340 330" role="img" aria-label="Two long bunny ears on a ribbon, one folded over. Tap them.">
+      <defs>
+        <clipPath id="aboveRibbon"><path d="M0 0 H340 V282 L300 282 Q170 310 40 282 L0 282 Z"/></clipPath>
+      </defs>
+      <g clip-path="url(#aboveRibbon)">
+        <g transform="translate(108 188) rotate(-9)" class="ear-l">
+          <g class="ear-in">
+            <path d="M0 -156 C27 -154 41 -94 41 -20 C41 50 29 98 0 102 C-29 98 -41 50 -41 -20 C-41 -94 -27 -154 0 -156 Z" fill="var(--ear)" stroke="var(--fg)" stroke-width="1.6" stroke-opacity=".7"/>
+            <path d="M0 -126 C16 -122 25 -80 25 -14 C25 46 16 82 0 86 C-16 82 -25 46 -25 -14 C-25 -80 -16 -122 0 -126 Z" fill="var(--ear-in)" opacity=".85"/>
+            <path d="M0 -104 C1 -50 1 20 0 74" fill="none" stroke="var(--rose-deep)" stroke-width="1" opacity=".35"/>
+          </g>
+        </g>
+        <g transform="translate(232 190) rotate(7)" class="ear-r">
+          <g class="ear-in">
+            <path d="M-36 102 C-46 40 -44 -34 -32 -78 C-24 -108 8 -122 36 -104 C60 -90 72 -58 76 -24 C78 -6 66 8 54 -2 C46 -10 48 -32 42 -48 C36 -62 22 -62 20 -42 C18 -6 28 60 36 102 Z" fill="var(--ear)" stroke="var(--fg)" stroke-width="1.6" stroke-opacity=".7"/>
+            <path d="M-20 90 C-28 36 -26 -28 -17 -66 C-10 -90 8 -100 28 -86 C46 -72 58 -48 62 -26 C63 -16 58 -14 55 -22 C50 -40 46 -52 36 -60 C26 -68 12 -56 10 -34 C8 4 14 56 18 90 Z" fill="var(--ear-in)" opacity=".85"/>
+            <path d="M-22 -70 C-6 -88 26 -86 44 -56" fill="none" stroke="var(--rose-deep)" stroke-width="1" opacity=".35"/>
+          </g>
+        </g>
+      </g>
+      <path d="M40 282 Q170 310 300 282" fill="none" stroke="var(--rose)" stroke-width="9" stroke-linecap="round"/>
+      <path d="M170 297 C148 276 126 290 138 306 C147 317 166 308 170 297 Z M170 297 C192 276 214 290 202 306 C193 317 174 308 170 297 Z" fill="var(--rose)" stroke="var(--rose-deep)" stroke-width="1.2"/>
+      <ellipse cx="170" cy="298" rx="6" ry="5.5" fill="var(--rose-deep)"/>
+    </svg>
+    <h1 class="title"><span class="t1">My beloved</span><span class="t2">angel</span></h1>
+    <p class="kicker">Happy Birthday</p>
+    <p class="sub">for the one my heart beats for</p>
+    <p class="forname" id="forname" hidden></p>
+    <p class="hint">Tap her ears</p>
+  </header>
+
+  <div class="orn" aria-hidden="true"><svg><use href="#mini"/></svg></div>
+
+  <section class="card" aria-labelledby="h-letter">
+    <p class="eyebrow">A letter</p>
+    <h2 id="h-letter">Written slowly, just for you</h2>
+    <div class="letter" id="letter"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-wish">
+    <p class="eyebrow">Make a wish</p>
+    <h2 id="h-wish">One candle, one breath</h2>
+    <p class="lede">Close your eyes, think of something you want badly, then blow the candle out bbyy.</p>
+    <div class="wish-grid">
+      <div class="candle" id="candle">
+        <svg viewBox="0 0 120 210" aria-hidden="true">
+          <defs>
+            <radialGradient id="glowG" cx="50%" cy="50%" r="50%">
+              <stop offset="0" stop-color="var(--flame-a)" stop-opacity=".75"/>
+              <stop offset="1" stop-color="var(--flame-b)" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="flameG" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0" stop-color="var(--flame-b)"/>
+              <stop offset="1" stop-color="var(--flame-a)"/>
+            </linearGradient>
+          </defs>
+          <circle class="glow" cx="60" cy="58" r="52" fill="url(#glowG)"/>
+          <path class="smoke" d="M60 56 C52 44 68 36 58 24 C52 16 62 8 60 0" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round"/>
+          <path class="flame" d="M60 30 C47 52 45 68 60 80 C75 68 73 52 60 30 Z" fill="url(#flameG)"/>
+          <line x1="60" y1="78" x2="60" y2="92" stroke="var(--fg)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M42 92 H78 V184 H42 Z" fill="var(--ear)" stroke="var(--fg)" stroke-opacity=".7" stroke-width="1.5"/>
+          <path d="M42 92 C50 100 54 96 60 100 C68 104 72 98 78 92" fill="var(--ear-in)" opacity=".7"/>
+          <ellipse cx="60" cy="190" rx="34" ry="8" fill="none" stroke="var(--fg)" stroke-opacity=".7" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="wish-form">
+        <label for="wish" class="eyebrow" style="text-align:left">Whisper it here</label>
+        <input class="field" id="wish" type="text" maxlength="140" placeholder="Nobody sees this, it is only for you" autocomplete="off">
+        <div class="row">
+          <button class="btn solid" id="blow" type="button">Blow it out</button>
+          <button class="btn" id="relight" type="button" hidden>Light it again</button>
+        </div>
+        <p class="wish-msg" id="wishMsg" aria-live="polite"></p>
+      </div>
+    </div>
+  </section>
+
+  <div class="orn" aria-hidden="true"><svg><use href="#mini"/></svg></div>
+
+  <section class="card" aria-labelledby="h-open">
+    <p class="eyebrow">Open when</p>
+    <h2 id="h-open">Letters for the days you need them</h2>
+    <p class="lede">Draw the curtains of the window that sounds like you right now.</p>
+    <div class="wins" id="wins"></div>
+    <div class="note" id="note" aria-live="polite">
+      <p class="n-title">Nothing open yet</p>
+      <p class="n-text">Every window has a letter behind it.</p>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="h-sky">
+    <p class="eyebrow">Star map</p>
+    <h2 id="h-sky">Nine stars, nine reasons</h2>
+    <p class="lede">Touch each star to light it. When the sky is full, something happens.</p>
+    <div class="sky" id="sky">
+      <div class="dust" id="dust" aria-hidden="true"></div>
+      <svg class="lines" id="lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="shoot" aria-hidden="true"></div>
+    </div>
+    <p class="sky-msg" id="skyMsg" aria-live="polite">Start anywhere.</p>
+    <p class="sky-count" id="skyCount">0 of 9 lit</p>
+  </section>
+
+  <div class="orn" aria-hidden="true"><svg><use href="#mini"/></svg></div>
+
+  <section class="card" aria-labelledby="h-things">
+    <p class="eyebrow">Moodboard</p>
+    <h2 id="h-things">Things that remind me of you</h2>
+    <p class="lede">Four small things that quietly say your name. Tap a picture to see why.</p>
+    <div class="things" id="things"></div>
+  </section>
+
+  <section class="card" aria-labelledby="h-moon">
+    <p class="eyebrow">The sky outside</p>
+    <h2 id="h-moon">The moon that welcomed you</h2>
+    <p class="lede">The moon above us tonight is real and computed from today's date. Add your birthday to see the one that was watching when you arrived.</p>
+    <div class="moons">
+      <div class="moon-fig">
+        <div class="badge" id="moonNow"></div>
+        <p class="moon-title">Tonight</p>
+        <p class="moon-text" id="moonNowText"></p>
+      </div>
+      <div class="moon-fig">
+        <div class="badge empty" id="moonBorn"></div>
+        <div class="date-field">
+          <label for="bday">Your birthday</label>
+          <input type="date" id="bday" max="2100-12-31" min="1900-01-01">
+        </div>
+        <p class="moon-text" id="moonBornText">Choose a date and your moon appears.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="orn" style="width:100%" aria-hidden="true"><svg><use href="#mini"/></svg></div>
+    <p class="big" id="from"></p>
+    <p class="since" id="since" hidden></p>
+    <p class="small">White lilies mean devotion and a heart that stays soft. This page is full of them for you.</p>
+  </footer>
+</main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Picture">
+  <button class="lb-btn lb-close" id="lbClose" type="button" aria-label="Close">&times;</button>
+  <button class="lb-btn lb-prev" id="lbPrev" type="button" aria-label="Previous picture">&lsaquo;</button>
+  <button class="lb-btn lb-next" id="lbNext" type="button" aria-label="Next picture">&rsaquo;</button>
+  <figure class="lb-fig">
+    <img id="lbImg" alt="">
+    <figcaption>
+      <p class="lb-title" id="lbTitle"></p>
+      <p class="lb-note" id="lbNote"></p>
+    </figcaption>
+  </figure>
+</div>
+
+<script src="images.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
